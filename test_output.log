@@ -1,0 +1,716 @@
+First-Level Menu: 
+a) Outbound Flight 
+b) Inbound Flight 
+c) Quit 
+Choose an option: Invalid selection. Please choose a, b, or c.
+First-Level Menu: 
+a) Outbound Flight 
+b) Inbound Flight 
+c) Quit 
+Choose an option: a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: List of empty seats:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: First-Level Menu: 
+a) Outbound Flight 
+b) Inbound Flight 
+c) Quit 
+Choose an option: a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): That seat is occupied.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): That seat is already empty.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Seat assignment deleted.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Invalid selection.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Invalid selection.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Invalid selection.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 22
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Name is too long. Please enter 49 characters or fewer.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Name is too long. Please enter 49 characters or fewer.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Alphabetical list of seats:
+Doe, John - Seat 1
+Johnson, Anne Marie - Seat 3
+Van Helsing, Robert - Seat 4
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: List of empty seats:
+2
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: List of empty seats:
+2
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: List of empty seats:
+2
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: List of empty seats:
+2
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): That seat is occupied.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: First-Level Menu: 
+a) Outbound Flight 
+b) Inbound Flight 
+c) Quit 
+Choose an option: a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Invalid selection. Please choose an option a-f.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Seat assignment deleted.a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 24
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Entry aborted.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 23
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 22
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Seat assigned successfully!
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Name is too long. Please enter 49 characters or fewer.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Number of empty seats: 21
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Enter a seat number (-1 to cancel): Enter the passenger's first name (-1 to cancel): Enter the passenger's last name: Name is too long. Please enter 49 characters or fewer.
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: Alphabetical list of seats:
+Brown, Chris - Seat 1
+De La Cruz, James - Seat 4
+Miller, Sarah Jane - Seat 3
+a) Show number of empty seats 
+b) Show list of empty seats 
+c) Show alphabetical list of seats 
+d) Assign a customer to a seat assignment 
+e) Delete a seat assignment 
+f) Return to Main Menu 
+Choose an option: First-Level Menu: 
+a) Outbound Flight 
+b) Inbound Flight 
+c) Quit 
+Choose an option: Goodbye!
