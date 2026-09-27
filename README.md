@@ -32,4 +32,51 @@ AI Tool Reflection:
   - I used ChatGPT as my helper for this assignment. The best suggestion ChatGPT made was to implement first_call. I could not seem to get the code working until that feature was added. ChatGPT did miss the mark early on by trying to have me use fprintf(stderr, "Error: base must be between 2 and 16.\n"); for my error message.
  
 Week 3:
-  
+## Problem & Solution Summary
+I wrote an airline seat assignment system in C from scratch. The program manages two separate flights, an outbound flight and an inbound flight, with 24 seats available on each flight.
+
+A structure `struct seat` stores the information for each seat, including the seat number, assignment status, passenger first name, and passenger last name. Two separate arrays, `outbound_seats[24]` and `inbound_seats[24]`, keep the seats for each flight separate.
+
+The program uses a first-level menu to select either the outbound or inbound flight. Each flight has its own menu for counting empty seats, listing empty seats, displaying assigned passengers alphabetically, assigning customers, deleting assignments, and returning to the main menu.
+
+## Input Stream & Buffer Analysis
+The program uses different input methods depending on the type of information being entered. Menu choices use `scanf(" %c", &choice)`. The space before `%c` skips whitespace and leftover newlines from previous input.
+
+Seat numbers use `scanf("%d", &seat)` and the return value is checked to detect invalid input. Passenger names use `%49[^\n]`, which allows names to contain spaces while limiting the input to 49 characters so the 50-character array is not exceeded.
+
+The original program used:
+
+```c
+while (getchar() != '\n');
+```
+
+to clear unwanted input. This caused a problem during automated testing because `getchar()` can return `EOF` when the input file reaches its end. The loop could then continue indefinitely.
+
+The code was changed to:
+
+```c
+while ((ch = getchar()) != '\n' && ch != EOF);
+```
+
+This clears the remaining input until either a newline or `EOF` is reached, preventing the program from getting stuck.
+
+## AI Test Harness Evaluation
+An AI-generated `test_input.txt` file was used to automatically test the program. The test included invalid menu choices, assigning seats, attempting to assign occupied seats, deleting assignments, cancelling with `-1`, invalid seat numbers, long names, names containing spaces, alphabetical sorting, and testing both flights.
+
+The automated test uncovered two major problems. First, the original `getchar()` loop could enter an infinite loop at `EOF`, which caused the output file to grow to several gigabytes.
+
+Second, the original passenger name input used:
+
+```c
+%*49[^\n]
+```
+
+The `*` suppresses assignment, so the name was read but not actually stored in the passenger's struct. This was changed to:
+
+```c
+%49[^\n]
+```
+
+After these changes, the test harness confirmed that seat counting, assignment, deletion, input validation, alphabetical sorting, and navigation between the flight menus worked correctly.
+
+I also used AI to help me format this README better, since I'm unhappy about the look of the previous two weeks.
