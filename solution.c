@@ -12,6 +12,8 @@ struct seat inbound_seats[24];
 
 void outbound_menu(void);
 void inbound_menu(void);
+void load_data(void);
+void save_data(void);
 
 void initialize_seats(void) {
     for (int i = 0; i < 24; i++) {
@@ -20,6 +22,224 @@ void initialize_seats(void) {
 
         inbound_seats[i].id_number = i + 1;
         inbound_seats[i].assignment_status = 0;
+    }
+}
+
+int valid_name(char name[50]) {
+
+    int i = 0;
+
+    while (i < 50 && name[i] != '\0') {
+
+        unsigned char ch = name[i];
+
+        if (ch < 32 || ch > 126) {
+            return 0;
+        }
+
+        i++;
+    }
+
+    if (i == 50) {
+        return 0;
+    }
+
+    return 1;
+}
+
+void load_data(void) {
+
+    FILE *file = fopen("flight_data.bin", "rb");
+
+    if (file == NULL) {
+
+        initialize_seats();
+
+        printf("Error: File could not be loaded.\n");
+
+        return;
+    }
+
+    if (fseek(file, 0, SEEK_END) != 0) {
+
+        printf("Error: Unable to determine file size.");
+
+        fclose(file);
+
+        initialize_seats();
+
+        return;
+    }
+
+    long file_size = ftell(file);
+
+    if (file_size != sizeof(struct seat) * 48) {
+
+        printf("Error: Invalid flight data file size.");
+
+        fclose(file);
+
+        initialize_seats();
+
+        return;
+    }
+
+    if (fseek(file, 0, SEEK_SET) != 0) {
+
+        printf("Error: Unable to reset file position.");
+
+        fclose(file);
+
+        initialize_seats();
+
+        return;
+    }
+
+    size_t result = fread(outbound_seats, sizeof(struct seat), 24, file);
+
+    if (result != 24) {
+
+        printf("Error: Unable to load outbound flight data.");
+
+        fclose(file);
+
+        initialize_seats();
+
+        return;
+    }
+
+    result = fread(inbound_seats, sizeof(struct seat), 24, file);
+
+    if (result != 24) {
+
+        printf("Error: Unable to load inbound flight data.");
+
+        fclose(file);
+
+        initialize_seats();
+
+        return;
+    }
+
+    for (int i = 0; i < 24; i++) {
+
+        if (outbound_seats[i].id_number != i + 1 ||
+            inbound_seats[i].id_number != i + 1) {
+
+            printf("Error: Invalid seat number in flight data.");
+
+            fclose(file);
+
+            initialize_seats();
+
+            return;
+        }
+
+        if ((outbound_seats[i].assignment_status != 0 &&
+             outbound_seats[i].assignment_status != 1) ||
+            (inbound_seats[i].assignment_status != 0 &&
+             inbound_seats[i].assignment_status != 1)) {
+
+            printf("Error: Invalid assignment status in flight data.");
+
+            fclose(file);
+
+            initialize_seats();
+
+            return;
+        }
+
+        if (outbound_seats[i].assignment_status == 1) {
+
+            if (!valid_name(outbound_seats[i].passenger_firstname) ||
+                !valid_name(outbound_seats[i].passenger_lastname)) {
+
+                printf("Error: Invalid passenger name in flight data.");
+
+                fclose(file);
+
+                initialize_seats();
+
+                return;
+            }
+        }
+
+        if (inbound_seats[i].assignment_status == 1) {
+
+            if (!valid_name(inbound_seats[i].passenger_firstname) ||
+                !valid_name(inbound_seats[i].passenger_lastname)) {
+
+                printf("Error: Invalid passenger name in flight data.");
+
+                fclose(file);
+
+                initialize_seats();
+
+                return;
+            }
+        }
+    }
+
+    if (fclose(file) != 0) {
+
+        printf("Error: Unable to close file.");
+    }
+}
+
+void save_data(void) {
+
+    FILE *file = fopen("flight_data.tmp", "wb");
+
+    if (file == NULL) {
+
+        printf("Error: File could not be opened for saving.\n");
+
+        return;
+    }
+
+    size_t result = fwrite(outbound_seats, sizeof(struct seat), 24, file);
+
+    if (result != 24) {
+
+        printf("Error: Unable to save outbound flight data.");
+
+        fclose(file);
+
+        return;
+    }
+
+    result = fwrite(inbound_seats, sizeof(struct seat), 24, file);
+
+    if (result != 24) {
+
+        printf("Error: Unable to save inbound flight data.");
+
+        fclose(file);
+
+        return;
+    }
+
+    if (fflush(file) != 0) {
+
+        printf("Error: Unable to flush flight data.");
+
+        fclose(file);
+
+        return;
+    }
+
+    if (fclose(file) != 0) {
+
+        printf("Error: Unable to close temporary flight data.");
+
+        return;
+    }
+
+    if (rename("flight_data.tmp", "flight_data.bin") != 0) {
+
+        printf("Error: Unable to replace flight data file.");
+
+        return;
     }
 }
 
@@ -48,6 +268,7 @@ void first_level_menu(void) {
                 break;
 
             case 'c':
+                save_data();
                 printf("Goodbye!\n");
                 return;
 
@@ -491,7 +712,7 @@ void inbound_menu(void) {
 }
 
 int main() {
-    initialize_seats();
+    load_data();
 
     first_level_menu();
 
