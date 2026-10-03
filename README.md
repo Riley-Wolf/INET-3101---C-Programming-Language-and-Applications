@@ -80,3 +80,70 @@ The `*` suppresses assignment, so the name was read but not actually stored in t
 After these changes, the test harness confirmed that seat counting, assignment, deletion, input validation, alphabetical sorting, and navigation between the flight menus worked correctly.
 
 I also used AI to help me format this README better, since I'm unhappy about the look of the previous two weeks.
+
+Week 4:
+# Airline Seat Assignment System
+
+## Problem Statement & Persistence Design
+
+The airline seat assignment system manages two flights, with 24 seats on the outbound flight and 24 seats on the inbound flight. Each seat is represented using a `struct seat` containing an ID number, assignment status, passenger first name, and passenger last name.
+
+The program uses binary file persistence through a file named `flight_data.bin`. The 24 outbound seat structures are written to the file first, followed by the 24 inbound seat structures. The program uses `fwrite()` to save the structures and `fread()` to load them. Since each structure has a fixed size, the expected file size can be calculated as 48 multiplied by `sizeof(struct seat)`.
+
+The program also uses a temporary file when saving. Data is first written to `flight_data.tmp`. After the writes, the program flushes and closes the file successfully before replacing the existing `flight_data.bin`. This helps prevent a failed save operation from destroying an existing valid data file.
+
+When the program starts, it attempts to load the saved data. If the file does not exist or contains invalid data, the program initializes all seats as empty instead of continuing with potentially corrupted information.
+
+## File Validation & Error Recovery Analysis
+
+The program performs several checks when loading the binary file to prevent corrupted data from being used.
+
+First, `fopen()` checks whether the file can be opened. If it cannot, the program initializes the seats and reports an error. The program then uses `fseek()` and `ftell()` to determine the file size. The file must contain exactly 48 `struct seat` records. This detects files that are truncated or contain unexpected extra data.
+
+The program also checks the return value of `fread()`. The outbound and inbound arrays each require exactly 24 structures to be read. If `fread()` returns fewer than 24, the program treats this as an incomplete read or unexpected end-of-file. The file is closed and the seat data is reinitialized.
+
+After successfully reading the structures, the program validates the contents of each record. Each seat ID must match its expected value from 1 through 24. The `assignment_status` must also be either `0` for an empty seat or `1` for an assigned seat.
+
+For assigned seats, the program calls `valid_name()` to validate the passenger first and last names. This prevents corrupted binary data containing non-printable characters from being accepted as a passenger name.
+
+When any validation fails, the program closes the file, reinitializes the seat arrays, and returns without using the corrupted data. This provides an error recovery process instead of allowing invalid information to remain in memory.
+
+## Pros & Cons of Solution
+
+### Advantages of Binary Serialization
+
+* Binary files are compact and efficient.
+* `fread()` and `fwrite()` make saving and loading the structures relatively simple.
+* The fixed structure makes it easy to calculate the expected file size.
+* The program can save and restore the complete seat state without manually formatting every field.
+* Binary data does not require parsing strings separated by commas or other delimiters.
+* The temporary-file save process reduces the chance of losing a valid data file because of a failed save.
+
+### Disadvantages of Binary Serialization
+
+* Binary files are not human-readable.
+* The file depends on the current layout and size of the C `struct`.
+* Changing the structure in a future version could make older binary files incompatible.
+* Corrupted binary data is more difficult to inspect manually than a text file.
+* Binary files are less portable between systems or programs that use different structure layouts.
+
+An alternative would be formatted ASCII text, such as CSV. A CSV file would be easier for a person to open and inspect, and it would be more portable between programs. However, text I/O would require additional code to format each record when saving and parse the records when loading. For this project, binary serialization is a practical choice because the program has a fixed number of records and a simple structure.
+
+## AI Fuzzing Reflection
+
+I used AI to help design a Python-based file fuzzer for testing the persistence and validation portions of the C program. The prompt requested a fuzzer that would create maliciously corrupted binary files and test different types of invalid data.
+
+The fuzzer was designed to generate several different test cases:
+
+* `corrupt_truncated.bin` — contains only the first 10 seat records instead of all 48.
+* `corrupt_oversized.bin` — contains extra bytes after the expected 48 seat records.
+* `corrupt_garbage_name.bin` — inserts non-printable binary values into a passenger name field.
+* `corrupt_seat_number.bin` — changes a seat ID to an invalid value such as `999`.
+* `corrupt_status.bin` — changes an assignment status to an invalid value such as `999`.
+* `corrupt_random.bin` — randomly changes bytes throughout the binary file.
+
+The corrupted files were tested by copying each one over `flight_data.bin` and running the C program. The truncated and oversized files were rejected by the file-size validation. The invalid seat number and invalid assignment status files were rejected by the corresponding structure validation checks. The garbage-name file was also detected once the corrupted seat contained an assigned passenger, allowing the passenger-name validation code to run.
+
+The fuzzing process demonstrated that successfully reading a binary file does not necessarily mean the data inside the file is valid. The original structures could be read successfully even when individual fields had been corrupted. This is why the final program performs validation after `fread()` instead of trusting the loaded structures.
+
+The testing also helped verify the program's error recovery. When invalid data is detected, the program closes the file, reinitializes the seat arrays, and avoids continuing with corrupted passenger or seat information. The fuzzer therefore provided a way to test cases that would be difficult to reproduce through normal menu input alone.
