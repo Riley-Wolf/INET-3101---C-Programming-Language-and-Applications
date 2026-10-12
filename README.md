@@ -147,3 +147,75 @@ The corrupted files were tested by copying each one over `flight_data.bin` and r
 The fuzzing process demonstrated that successfully reading a binary file does not necessarily mean the data inside the file is valid. The original structures could be read successfully even when individual fields had been corrupted. This is why the final program performs validation after `fread()` instead of trusting the loaded structures.
 
 The testing also helped verify the program's error recovery. When invalid data is detected, the program closes the file, reinitializes the seat arrays, and avoids continuing with corrupted passenger or seat information. The fuzzer therefore provided a way to test cases that would be difficult to reproduce through normal menu input alone.
+
+Week 5:
+# Socket File Server
+
+## Problem Statement & Architecture
+
+This project implements a simple TCP client/server system in C. The client connects to the server on TCP port 8080, asks the user for a filename, and sends the filename to the server. The server receives the request, validates the filename, opens the requested file, and sends the file contents back to the client. If the file cannot be found or the request is invalid, the server sends an error message instead.
+
+The communication uses TCP sockets because TCP provides reliable, ordered delivery between the client and server. The protocol is intentionally simple: the client sends one filename request, and the server sends either the requested file contents or an error message. The server uses port 8080 and listens for incoming connections on all local interfaces. The client connects to `127.0.0.1`, so testing is performed locally on the same computer.
+
+The server processes clients iteratively. It accepts one connection, processes the request, closes that client socket, and then waits for the next connection.
+
+## Socket Security & Buffer Analysis
+
+TCP is a byte-stream protocol rather than a message-based protocol. The server therefore uses `recv()` to read the filename into a fixed-size buffer. The receive buffer is limited to `sizeof(filename) - 1`, leaving space for an explicit null terminator. After `recv()` returns, the server places `'\0'` at `filename[bytes_received]` so that the received data can safely be treated as a C string.
+
+The server also checks the return value of `recv()`. A value of zero or less causes the connection to be closed without attempting to process invalid data. Requests that fill the receive buffer are rejected as filenames that are too long. This prevents a large input such as the 10,000-byte fuzzer payload from overflowing the filename array.
+
+The server sanitizes filenames before calling `fopen()`. It rejects filenames containing `..`, `/`, or `.`. This prevents common path traversal requests such as `../../etc/passwd` and absolute paths such as `/etc/passwd`. The server also rejects empty filenames and detects embedded null bytes before opening a file.
+
+File contents are limited to 255 bytes. The server checks the file size with `fseek()` and `ftell()` before reading it. The file data is stored in a 256-byte buffer, allowing one additional byte for a null terminator. Socket and file descriptors are closed on error paths as well as after successful requests.
+
+The protocol remains intentionally simple. Because TCP does not preserve application-level message boundaries, a production protocol would normally use explicit framing, such as a length field or delimiter. This implementation relies on the filename request being short enough to be received in one `recv()` call, which is acceptable for this small assignment but is a limitation of the design.
+
+## Pros & Cons of Solution
+
+One advantage of the solution is its simplicity. The server uses standard C socket functions and processes one client at a time, making the program easier to understand, compile, test, and debug. The iterative design also avoids the additional complexity of threads, processes, synchronization, and shared resources.
+
+The security checks provide protection against the specific malformed inputs tested by the fuzzer. Fixed-size buffers and explicit null termination reduce the risk of traditional C string buffer overflows. Filename validation also prevents the server from intentionally opening files outside the server's working directory through common path traversal techniques.
+
+The main disadvantage is that the server is iterative rather than concurrent. While one client is being processed, another client must wait. A multithreaded or fork-based server could process multiple clients at the same time, but that would add complexity and require additional resource and error management.
+
+Another limitation is the simple TCP protocol. The server assumes the short filename request can be handled by a single `recv()` operation. TCP can split or combine data arbitrarily, so a more robust implementation would define explicit request framing and continue receiving until the complete request has been received.
+
+## AI Fuzzing Reflection
+
+The network fuzzer was created with the following prompt:
+
+> "Write a test script named fuzzer_2.py designed to craft malicious raw TCP socket payloads against your server. The fuzzer must simulate path traversal attacks, buffer overflow/payload flooding by sending 10,000 characters without a newline or null terminator, abrupt disconnections before sending data or during transmission, and null byte injection inside requested file strings."
+
+The fuzzer was then refined to retest the hardened server after the C code was refactored. It sends path traversal requests such as `../../etc/passwd`, an absolute path, a 10,000-byte payload, an immediate connection teardown, a mid-transmission teardown, and a filename containing a binary null byte.
+
+The initial simplified server did not perform explicit path sanitization, so it could potentially attempt to open paths supplied by the client. It also did not explicitly reject a payload that filled the receive buffer. These weaknesses were addressed by adding filename validation, checking the number of bytes returned by `recv()`, explicitly null-terminating received data, rejecting oversized requests, detecting null-byte injection, and closing sockets on error paths.
+
+The final fuzzer did not require a memory crash to demonstrate that the hardening worked. The important result was that malicious requests were rejected without crashing or hanging the server, while normal requests such as `solution.c` continued to work.
+
+## Expected Fuzzer Output
+
+With the hardened server running, the fuzzer should produce results similar to:
+
+```yaml
+--- Path Traversal ---
+Response: Error: Invalid filename.
+
+--- Absolute Path ---
+Response: Error: Invalid filename.
+
+--- 10,000-Byte Payload Flood ---
+Response: Error: Filename is too long.
+
+--- Abrupt Disconnect: Before Sending ---
+Connected and closed without sending data.
+
+--- Abrupt Disconnect: During Transmission ---
+Sent partial payload and closed connection.
+
+--- Null Byte Injection ---
+Response: Error: Invalid filename.
+
+Fuzzing complete.
+
+The exact order of messages may vary slightly depending on the operating system and timing, but the important result is that the server remains running and does not crash when receiving the malicious payloads.
