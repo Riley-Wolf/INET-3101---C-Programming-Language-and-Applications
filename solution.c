@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// Stores information for one seat
+
 struct seat {
     int id_number;
     int assignment_status;
@@ -15,6 +17,7 @@ void inbound_menu(void);
 void load_data(void);
 void save_data(void);
 
+// Set all seats to empty at startup
 void initialize_seats(void) {
     for (int i = 0; i < 24; i++) {
         outbound_seats[i].id_number = i + 1;
@@ -25,6 +28,7 @@ void initialize_seats(void) {
     }
 }
 
+// Check that a saved name contains valid characters
 int valid_name(char name[50]) {
 
     int i = 0;
@@ -47,11 +51,14 @@ int valid_name(char name[50]) {
     return 1;
 }
 
+// Load saved seat data from the file
 void load_data(void) {
 
+    // Open the saved data file
     FILE *file = fopen("flight_data.bin", "rb");
 
     if (file == NULL) {
+        // Stop if the file cannot be opened
 
         initialize_seats();
 
@@ -60,6 +67,7 @@ void load_data(void) {
         return;
     }
 
+    // Find the file size before reading it
     if (fseek(file, 0, SEEK_END) != 0) {
 
         printf("Error: Unable to determine file size.");
@@ -73,6 +81,7 @@ void load_data(void) {
 
     long file_size = ftell(file);
 
+    // Make sure the file has exactly 48 seats
     if (file_size != sizeof(struct seat) * 48) {
 
         printf("Error: Invalid flight data file size.");
@@ -84,6 +93,7 @@ void load_data(void) {
         return;
     }
 
+    // Go back to the beginning of the file
     if (fseek(file, 0, SEEK_SET) != 0) {
 
         printf("Error: Unable to reset file position.");
@@ -95,6 +105,7 @@ void load_data(void) {
         return;
     }
 
+    // Read the outbound seats
     size_t result = fread(outbound_seats, sizeof(struct seat), 24, file);
 
     if (result != 24) {
@@ -108,7 +119,10 @@ void load_data(void) {
         return;
     }
 
+    // Read the inbound seats
     result = fread(inbound_seats, sizeof(struct seat), 24, file);
+
+    // Check the loaded data for invalid values
 
     if (result != 24) {
 
@@ -180,23 +194,28 @@ void load_data(void) {
         }
     }
 
+    // Close the file
     if (fclose(file) != 0) {
 
         printf("Error: Unable to close file.");
     }
 }
 
+// Save the current seat data to the file
 void save_data(void) {
 
+    // Write to a temporary file first
     FILE *file = fopen("flight_data.tmp", "wb");
 
     if (file == NULL) {
+        // Stop if the file cannot be opened
 
         printf("Error: File could not be opened for saving.\n");
 
         return;
     }
 
+    // Save the outbound seats
     size_t result = fwrite(outbound_seats, sizeof(struct seat), 24, file);
 
     if (result != 24) {
@@ -208,6 +227,7 @@ void save_data(void) {
         return;
     }
 
+    // Save the inbound seats
     result = fwrite(inbound_seats, sizeof(struct seat), 24, file);
 
     if (result != 24) {
@@ -219,6 +239,7 @@ void save_data(void) {
         return;
     }
 
+    // Make sure all data is written
     if (fflush(file) != 0) {
 
         printf("Error: Unable to flush flight data.");
@@ -228,6 +249,7 @@ void save_data(void) {
         return;
     }
 
+    // Close the file
     if (fclose(file) != 0) {
 
         printf("Error: Unable to close temporary flight data.");
@@ -235,6 +257,7 @@ void save_data(void) {
         return;
     }
 
+    // Replace the old file with the new file
     if (rename("flight_data.tmp", "flight_data.bin") != 0) {
 
         printf("Error: Unable to replace flight data file.");
@@ -243,6 +266,7 @@ void save_data(void) {
     }
 }
 
+// Show the main menu
 void first_level_menu(void) {
     char choice;
 
@@ -258,6 +282,7 @@ void first_level_menu(void) {
             return;
         }
 
+        // Handle the selected menu option
         switch(choice) {
             case 'a':
                 outbound_menu();
@@ -279,6 +304,7 @@ void first_level_menu(void) {
     }
 }
 
+// Handle the outbound flight menu
 void outbound_menu(void) {
     char choice;
 
@@ -296,11 +322,13 @@ void outbound_menu(void) {
             return;
         }
 
+        // Handle the selected menu option
         switch(choice) {
             case 'a': {
+                // Count empty seats
                 int empty_seats = 0;
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     if (outbound_seats[i].assignment_status == 0) {
                         empty_seats++;
                     }
@@ -312,9 +340,10 @@ void outbound_menu(void) {
             }
 
             case 'b': {
+                // Show every empty seat
                 printf("List of empty seats:\n");
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     if (outbound_seats[i].assignment_status == 0) {
                         printf("%d\n", outbound_seats[i].id_number);
                     }
@@ -324,11 +353,12 @@ void outbound_menu(void) {
             }
 
             case 'c': {
+                // Sort seat indexes by passenger last name
                 int order[24];
                 int temp;
 
                 // Put the seat indexes into the array
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     order[i] = i;
                 }
 
@@ -357,7 +387,7 @@ void outbound_menu(void) {
 
                 printf("Alphabetical list of seats:\n");
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     int seat = order[i];
 
                     if (outbound_seats[seat].assignment_status == 1) {
@@ -372,12 +402,14 @@ void outbound_menu(void) {
             }
             
             case 'd': {
+                // Assign a passenger to a seat
                 int seat;
 
                 printf("Enter a seat number (-1 to cancel): ");
                 if (scanf("%d", &seat) != 1) {
                     printf("Invalid selection.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -389,22 +421,26 @@ void outbound_menu(void) {
                     break;
                 }
 
+                // Make sure the seat number is valid
                 if (seat < 1 || seat > 24) {
                     printf("Invalid selection.\n");
                     break;
                 }
 
+                // Do not overwrite an occupied seat
                 if (outbound_seats[seat - 1].assignment_status == 1) {
                     printf("That seat is occupied.");
                     break;
                 }
 
+                // Get the passenger first name
                 printf("Enter the passenger's first name (-1 to cancel): ");
                 scanf(" %49[^\n]", outbound_seats[seat - 1].passenger_firstname);
 
                 if (getchar() != '\n') {
                     printf("Name is too long. Please enter 49 characters or fewer.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -419,12 +455,14 @@ void outbound_menu(void) {
                     break;
                 }
 
+                // Get the passenger last name
                 printf("Enter the passenger's last name: ");
                 scanf(" %49[^\n]", outbound_seats[seat - 1].passenger_lastname);
 
                 if (getchar() != '\n') {
                     printf("Name is too long. Please enter 49 characters or fewer.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -439,6 +477,7 @@ void outbound_menu(void) {
                     break;
                 }
 
+                // Mark the seat as occupied
                 outbound_seats[seat - 1].assignment_status = 1;
 
                 printf("Seat assigned successfully!\n");
@@ -447,12 +486,14 @@ void outbound_menu(void) {
             }
 
             case 'e': {
+                // Delete a passenger from a seat
                 int seat;
 
                 printf("Enter a seat number (-1 to cancel): ");
                 if (scanf("%d", &seat) != 1) {
                     printf("Invalid selection.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -464,6 +505,7 @@ void outbound_menu(void) {
                     break;
                 }
 
+                // Make sure the seat number is valid
                 if (seat < 1 || seat > 24) {
                     printf("Invalid selection.\n");
                     break;
@@ -474,6 +516,7 @@ void outbound_menu(void) {
                     break;
                 }
 
+                // Mark the seat as empty
                 outbound_seats[seat - 1].assignment_status = 0;
                 outbound_seats[seat - 1].passenger_firstname[0] = '\0';
                 outbound_seats[seat - 1].passenger_lastname[0] = '\0';
@@ -495,6 +538,7 @@ void outbound_menu(void) {
     }
 }
 
+// Handle the inbound flight menu
 void inbound_menu(void) {
     char choice;
 
@@ -512,11 +556,13 @@ void inbound_menu(void) {
             return;
         }
 
+        // Handle the selected menu option
         switch(choice) {
             case 'a': {
+                // Count empty seats
                 int empty_seats = 0;
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     if (inbound_seats[i].assignment_status == 0) {
                         empty_seats++;
                     }
@@ -528,9 +574,10 @@ void inbound_menu(void) {
             }
 
             case 'b': {
+                // Show every empty seat
                 printf("List of empty seats:\n");
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     if (inbound_seats[i].assignment_status == 0) {
                         printf("%d\n", inbound_seats[i].id_number);
                     }
@@ -540,11 +587,12 @@ void inbound_menu(void) {
             }
 
             case 'c': {
+                // Sort seat indexes by passenger last name
                 int order[24];
                 int temp;
 
                 // Put the seat indexes into the array
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     order[i] = i;
                 }
 
@@ -573,7 +621,7 @@ void inbound_menu(void) {
 
                 printf("Alphabetical list of seats:\n");
 
-                for (int i = 0; i < 24; i++) {
+            for (int i = 0; i < 24; i++) {
                     int seat = order[i];
 
                     if (inbound_seats[seat].assignment_status == 1) {
@@ -588,12 +636,14 @@ void inbound_menu(void) {
             }
             
             case 'd': {
+                // Assign a passenger to a seat
                 int seat;
 
                 printf("Enter a seat number (-1 to cancel): ");
                 if (scanf("%d", &seat) != 1) {
                     printf("Invalid selection.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -605,22 +655,26 @@ void inbound_menu(void) {
                     break;
                 }
 
+                // Make sure the seat number is valid
                 if (seat < 1 || seat > 24) {
                     printf("Invalid selection.\n");
                     break;
                 }
 
+                // Do not overwrite an occupied seat
                 if (inbound_seats[seat - 1].assignment_status == 1) {
                     printf("That seat is occupied.");
                     break;
                 }
 
+                // Get the passenger first name
                 printf("Enter the passenger's first name (-1 to cancel): ");
                 scanf(" %49[^\n]", inbound_seats[seat - 1].passenger_firstname);
 
                 if (getchar() != '\n') {
                     printf("Name is too long. Please enter 49 characters or fewer.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -635,12 +689,14 @@ void inbound_menu(void) {
                     break;
                 }
 
+                // Get the passenger last name
                 printf("Enter the passenger's last name: ");
                 scanf(" %49[^\n]", inbound_seats[seat - 1].passenger_lastname);
 
                 if (getchar() != '\n') {
                     printf("Name is too long. Please enter 49 characters or fewer.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -655,6 +711,7 @@ void inbound_menu(void) {
                     break;
                 }
 
+                // Mark the seat as occupied
                 inbound_seats[seat - 1].assignment_status = 1;
 
                 printf("Seat assigned successfully!\n");
@@ -663,12 +720,14 @@ void inbound_menu(void) {
             }
 
             case 'e': {
+                // Delete a passenger from a seat
                 int seat;
 
                 printf("Enter a seat number (-1 to cancel): ");
                 if (scanf("%d", &seat) != 1) {
                     printf("Invalid selection.\n");
 
+                    // Clear the rest of the input line
                     int ch;
                     while ((ch = getchar()) != '\n' && ch != EOF);
 
@@ -680,6 +739,7 @@ void inbound_menu(void) {
                     break;
                 }
 
+                // Make sure the seat number is valid
                 if (seat < 1 || seat > 24) {
                     printf("Invalid selection.\n");
                     break;
@@ -690,6 +750,7 @@ void inbound_menu(void) {
                     break;
                 }
 
+                // Mark the seat as empty
                 inbound_seats[seat - 1].assignment_status = 0;
                 inbound_seats[seat - 1].passenger_firstname[0] = '\0';
                 inbound_seats[seat - 1].passenger_lastname[0] = '\0';
@@ -712,8 +773,10 @@ void inbound_menu(void) {
 }
 
 int main() {
+    // Load saved data before showing the menus
     load_data();
 
+    // Start the main menu
     first_level_menu();
 
     return 0;
