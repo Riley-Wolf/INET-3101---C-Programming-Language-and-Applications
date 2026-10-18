@@ -219,3 +219,65 @@ Response: Error: Invalid filename.
 Fuzzing complete.
 
 The exact order of messages may vary slightly depending on the operating system and timing, but the important result is that the server remains running and does not crash when receiving the malicious payloads.
+
+Week 6:
+# GNU Coreutils 9.7: `ls.c` and `whoami.c`
+
+## 1. Problem Statement & Solution Overview
+
+The goal was to modify two GNU Coreutils 9.7 utilities:
+
+- **`ls.c`:** Change the default output to long format (`ls -l`) when no arguments are supplied.
+- **`whoami.c`:** Add the prefix `You are: ` before the current username.
+
+After modifying both C source files, GNU Coreutils was rebuilt, and the resulting binaries were tested.
+
+## 2. C System Mechanics & Diff Analysis
+
+### `ls.c`
+
+The format-selection logic in `decode_switches()` was modified to select `long_format` by default in normal `ls` mode.
+
+Relevant variables:
+- `format`: Selected listing format.
+- `format_opt`: Tracks explicitly selected format options.
+- `ls_mode`: Determines the utility's operating mode.
+- `long_format`: Enables long-format output.
+
+Explicit command-line options should continue to override the default.
+
+### `whoami.c`
+
+The utility uses `getuid()` and `getpwuid()` to retrieve the current user's identity and username. The output formatting was changed to include the `You are: ` prefix while retaining dynamic username lookup.
+
+### Unified Git Diff
+
+Generate the exact patch using:
+
+```bash
+git diff -- src/ls.c src/whoami.c
+```
+
+Include the resulting output here to document the actual source changes.
+
+## 3. Pros & Cons
+
+**Pros:**
+- Makes detailed file information available by default.
+- Adds a descriptive prefix to `whoami` output.
+- Requires only small changes to existing code.
+
+**Cons:**
+- Changing default `ls` output may break scripts expecting standard short listings.
+- The `whoami` prefix may break scripts expecting only the username.
+- Future Coreutils updates may require reapplying the changes.
+
+## 4. AI Audit Reflection
+
+AI assistance helped locate the relevant source code, understand how `ls` uses format-selection variables and command-line options, and identify how `whoami` retrieves usernames.
+
+The changes should be verified by rebuilding Coreutils, testing both utilities, checking explicit `ls` options, and reviewing the unified Git diff. Only tests actually performed should be reported as completed.
+
+## 5. Conclusion
+
+This assignment demonstrates how small C source modifications can change command-line utility behavior. Rebuilding, testing, and reviewing the Git diff help verify and document the changes.
