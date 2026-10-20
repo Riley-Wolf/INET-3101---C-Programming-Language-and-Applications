@@ -281,3 +281,72 @@ The changes should be verified by rebuilding Coreutils, testing both utilities, 
 ## 5. Conclusion
 
 This assignment demonstrates how small C source modifications can change command-line utility behavior. Rebuilding, testing, and reviewing the Git diff help verify and document the changes.
+
+Captone Project:
+# Capstone Project: Cloud Services Billing Engine (INET 3101)
+
+## Problem Statement
+Modern enterprise cloud platforms handle millions of micro-transactions per second, tracking hardware compute time and data movement across vast server clusters. Text-based logging frameworks (such as raw CSV or plain text streams) create severe processing bottlenecks due to high string-parsing overhead, memory consumption, and disk fragmentation under heavy load.
+
+This application provides a highly performant, multi-threaded **Cloud Services Billing Engine** built entirely in structural C. The system operates as a stateless background utility that ingests raw telemetry records from remote infrastructure nodes over TCP socket connections. It dynamically aggregates multi-tier pricing profiles across compute configurations (CPU/RAM metrics) and network thresholds (metered outbound data transfers), safely archiving structural updates inside a thread-safe, low-latency binary flat-file database layout.
+
+---
+
+## Design & Architecture Details
+
+### 1. Key Data Structures
+To prevent platform cross-compilation errors and struct layout discrepancies across 32-bit and 64-bit platforms, the system enforces strong data boundaries using explicit fixed-width integers defined in `include/billing.h`:
+*   **`Account` Struct (68 Bytes):** Explicitly wraps a unique `uint32_t` account pointer, a fixed-width `char[50]` block for client identity strings, a double-precision floating-point balance tracker, and an `int32_t` status flag reserved for data persistence cycling.
+*   **`UsageRecord` Struct (24 Bytes):** Maps hardware telemetry metrics streamed from remote cloud instances, combining dedicated counters for assigned processor cores, RAM volumes, directional bandwidth metrics, and total duration thresholds.
+
+### 2. Abstract Data Types (ADTs) & Modularity
+The codebase separates systems logic cleanly by implementing functional modular boundaries across decoupled source nodes:
+*   `database.c`: Handles structural data persistence routines on disk, abstracting file descriptors away from network execution environments.
+*   `network.c`: Isolates low-level networking primitives, socket listener cycles, and POSIX background worker allocations.
+*   `billing.c`: Houses business-tier algorithms, rate tiering mathematics, and final text data formatting parameters.
+
+### 3. Database Persistence Strategy
+The backend skips parsing-heavy structural files (like JSON or XML strings) for local operations, using a fixed-width binary record database file (`accounts.bin`) instead. Because every profile layout tracks to exactly 68 bytes in memory, the engine runs high-speed transactional CRUD updates using predictable mathematical array indexing formulas via `fseek()`:
+
+\[\text{Byte Location Offset} = \text{Target Account ID} \times \operatorname{sizeof}(\text{Account})\]
+
+*   **Create:** Serializes raw structured bytes onto the tail-end of the database using append-binary (`"ab"`) file streams.
+*   **Read:** Parses sequential 68-byte file blocks into active memory spaces via standard `fread()` routines.
+*   **Update:** Executes random-access seek jumps (`SEEK_SET`) over matching byte grids to directly overwrite file records in-place without touching surrounding records using read/write binary (`"rb+"`) stream configurations.
+*   **Delete:** Implements a performant **Soft Delete** pipeline. The engine flips a structural activity flag value (`is_active = 0`) instead of performing risky file-shrinking operations, ensuring transaction historical trails are never damaged.
+
+### 4. Socket Networking Protocol
+The server opens a custom binary communication channel operating over port `8080`. When infrastructure client nodes initialize standard TCP network sessions, the primary server accept loop hands off connection descriptors to isolated POSIX worker threads (`pthread_create`). 
+
+Rather than parsing text tokens line-by-line, worker threads use `recv()` to extract exact 24-byte blocks corresponding to the `UsageRecord` model from the system's buffer stream. This lets the backend intercept metrics packages seamlessly with zero custom regex parsing required.
+
+---
+
+## Pros & Cons of Solution
+
+### System Performance & Strengths
+*   **Highly Efficient Concurrency Mapping:** delegating multi-client socket streams over to detached `pthread` workers isolates individual data flows. The main listening server loop never blocks on open client streams, minimizing request-to-response delays.
+*   **Zero Parsing Overhead:** Skipping text conversions during standard record operations allows the binary engine to ingest data and update metrics profiles at hardware-limited speeds.
+*   **Predictable Memory Fingerprints:** Worker threads use fixed arrays and data structures instead of dynamic allocations (`malloc`). This prevents heap leaks and memory fragmentation during continuous operation.
+
+### System Limitations & Future Expansion
+*   **Lock Contention Bottlenecks:** System safety relies on a global mutual exclusion lock (`ledger_mutex`) to synchronize text file logging updates. While 100% thread-safe, this global file lock can cause thread queues under extreme traffic conditions. Moving forward, the application should upgrade to fine-grained, file-record-level locking (`flock`).
+*   **Vulnerability to System Interruptions:** Overwriting file blocks directly on disk via `fseek` provides massive speed benefits but presents minor reliability risks. If a server loses power mid-write, a 68-byte database slot could become corrupted. Future updates will introduce a Write-Ahead Logging (WAL) subsystem to track changes safely.
+
+---
+
+## AI Audit Reflection
+
+### 1. Modularity & Architectural Review Prompts
+The core architecture and systems design guidelines were refined through targeted system design prompts during AI consultation:
+*   *Prompt 1:* "Review a modular multi-file C architecture directory plan mapping database file routines away from multi-threaded network socket pipelines to protect abstract data type modularity."
+*   *Prompt 2:* "Evaluate struct memory footprints using mixed uint32_t and double variables on 64-bit systems to determine exact padding overheads for binary file positioning."
+
+### 2. Bugs Uncovered & Refactoring Decisions
+*   **Shared Storage Race Condition Elimination:** Early architectural testing revealed that concurrent socket thread handlers could try to read and update the same profile inside `accounts.bin` simultaneously, causing raw byte corruption. AI flagged this shared-resource vulnerability and guided the refactoring process to wrap file mutations inside global thread mutex locks (`pthread_mutex_lock`).
+*   **Thread Resource Memory Leak Identification:** Valgrind trace simulations initially identified resource leaks stemming from thread termination loops. If multi-threaded socket worker routines close connections without an active `pthread_join` pair, thread metadata remains stuck in system memory. AI helped refactor this system by introducing `pthread_detach(thread_id)`, configuring the server to automatically reclaim worker loop resources immediately upon disconnect.
+
+---
+
+## Demo Video Link
+*   **Kaltura MediaSpace Walk-Through:** [https://mediaspace.umn.edu/media/t/1_cr8mi7zo]
