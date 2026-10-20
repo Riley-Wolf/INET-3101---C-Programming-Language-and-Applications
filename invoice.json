@@ -1,0 +1,7 @@
+{
+  "account_id": 1001,
+  "customer_name": "Acme MegaCorp",
+  "total_balance_due_usd": 0.00,
+  "metrics_processed_count": 5,
+  "status": "Generated Successfully"
+}
